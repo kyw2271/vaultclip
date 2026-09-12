@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VaultClip</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <h1>VaultClip</h1>
+    <div class="version">Markdown summary + PDF archive</div>
+
+    <section class="panel">
+      <div class="row">
+        <button id="pickVault">Vault 폴더 선택</button>
+        <span id="vaultStatus" class="badge bad">미선택</span>
+      </div>
+
+      <label class="field">
+        <span>Vault 내부 저장 폴더</span>
+        <input id="subfolder" type="text" value="WebClip" spellcheck="false">
+      </label>
+
+      <label class="field">
+        <span>요약 최대 길이</span>
+        <select id="summaryChars">
+          <option value="500">짧게 · 약 500자</option>
+          <option value="900" selected>보통 · 약 900자</option>
+          <option value="1500">길게 · 약 1,500자</option>
+        </select>
+      </label>
+
+      <label class="check">
+        <input id="embedPdf" type="checkbox" checked>
+        <span>PDF를 노트 안에 임베드 <code>![[...]]</code></span>
+      </label>
+    </section>
+
+    <section class="notice">
+      <strong>PDF 자동 저장 권한 안내</strong>
+      <p>PDF 생성 시 현재 탭에 Chrome 디버깅 인터페이스를 잠시 연결합니다.
+      페이지 데이터는 외부 서버로 전송하지 않으며 PDF 저장 직후 연결을 해제합니다.</p>
+    </section>
+
+    <button id="saveBoth" class="primary">요약 MD + PDF 저장</button>
+    <p id="status">Vault를 먼저 선택하세요.</p>
+    <p class="hint">MD에는 저장 시간·요약·PDF 연결만 기록합니다. 원문 전문은 PDF에만 보존합니다.</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
