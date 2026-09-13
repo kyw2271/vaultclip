@@ -1,0 +1,135 @@
+{
+  "extensionName": {
+    "message": "VaultClip - Markdown + PDF"
+  },
+  "extensionDescription": {
+    "message": "Save the current page to a local vault as a compact Markdown note linked to a full PDF archive."
+  },
+  "subtitle": {
+    "message": "Markdown summary + PDF archive"
+  },
+  "languageLabel": {
+    "message": "Language"
+  },
+  "languageAuto": {
+    "message": "Use Chrome language"
+  },
+  "pickVault": {
+    "message": "Choose Vault folder"
+  },
+  "vaultNotSelected": {
+    "message": "Not selected"
+  },
+  "vaultPermissionNeeded": {
+    "message": "Check permission"
+  },
+  "subfolderLabel": {
+    "message": "Save folder inside Vault"
+  },
+  "summaryLengthLabel": {
+    "message": "Maximum summary length"
+  },
+  "summaryShort": {
+    "message": "Short · about 500 characters"
+  },
+  "summaryMedium": {
+    "message": "Medium · about 900 characters"
+  },
+  "summaryLong": {
+    "message": "Long · about 1,500 characters"
+  },
+  "embedPdfLabel": {
+    "message": "Embed PDF in the note"
+  },
+  "pdfPermissionTitle": {
+    "message": "Permission for automatic PDF saving"
+  },
+  "pdfPermissionBody": {
+    "message": "VaultClip briefly uses Chrome’s debugging interface on the current tab to generate a PDF, then disconnects. Page data is not sent to external servers."
+  },
+  "saveBoth": {
+    "message": "Save summary MD + PDF"
+  },
+  "selectVaultFirst": {
+    "message": "Choose a Vault folder to get started."
+  },
+  "noteHint": {
+    "message": "The note contains the page title, saved time, extracted summary and PDF link. The full page is archived in the PDF."
+  },
+  "vaultConnected": {
+    "message": "Vault connected: $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "My Vault"
+      }
+    }
+  },
+  "vaultSelected": {
+    "message": "Vault selected: $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "My Vault"
+      }
+    }
+  },
+  "folderPickerUnavailable": {
+    "message": "The folder picker is not available in this version of Chrome."
+  },
+  "error": {
+    "message": "Error: $details$",
+    "placeholders": {
+      "details": {
+        "content": "$1",
+        "example": "Could not read the page content."
+      }
+    }
+  },
+  "uniqueFilenameFailed": {
+    "message": "Could not create a unique filename."
+  },
+  "pdfGenerationFailed": {
+    "message": "Could not generate the PDF."
+  },
+  "vaultWritePermissionRequired": {
+    "message": "Please allow write access to your Vault folder."
+  },
+  "normalWebpageRequired": {
+    "message": "Open a regular webpage (http/https) before saving."
+  },
+  "extractingSummary": {
+    "message": "Extracting page summary..."
+  },
+  "pageReadFailed": {
+    "message": "Could not read the page content."
+  },
+  "generatingPdf": {
+    "message": "Generating PDF..."
+  },
+  "savedAt": {
+    "message": "Saved at"
+  },
+  "summaryHeading": {
+    "message": "Summary"
+  },
+  "summaryUnavailable": {
+    "message": "No summary could be extracted."
+  },
+  "savingNote": {
+    "message": "Saving summary note..."
+  },
+  "saveComplete": {
+    "message": "Saved successfully\nMD: $md_path$\nPDF: $pdf_path$",
+    "placeholders": {
+      "md_path": {
+        "content": "$1",
+        "example": "WebClip/Example.md"
+      },
+      "pdf_path": {
+        "content": "$2",
+        "example": "WebClip/_archive/pdf/Example.pdf"
+      }
+    }
+  }
+}

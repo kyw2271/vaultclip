@@ -13,12 +13,12 @@ Used to execute the page-text extraction function in the active tab after a user
 Required for automatic PDF generation on desktop Chrome. During a user-initiated save operation, VaultClip temporarily attaches to the active tab and invokes Chrome DevTools Protocol `Page.printToPDF`. It immediately detaches after PDF creation. The permission is not used for network monitoring, credential access, unrelated debugging, telemetry, or external transmission.
 
 ## storage
-Used only to remember local extension preferences such as the selected Vault subfolder, summary length, and PDF embed preference. No analytics or server-side storage is used.
+Used only to remember local extension preferences such as the selected Vault subfolder, summary length, PDF embed preference, and UI language choice. No analytics or server-side storage is used.
 
 ## Remote code
 Select: **No, I am not using remote code.**
 
-All executable JavaScript is packaged with the extension. The extension does not download or execute remotely hosted code.
+All executable JavaScript and Korean/English translation catalogs are packaged with the extension. The catalogs are read only from local chrome-extension:// URLs. The extension does not download or execute remotely hosted code.
 
 ## Data usage disclosure
 Conservative disclosure recommendation:

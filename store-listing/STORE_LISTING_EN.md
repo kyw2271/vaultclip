@@ -1,35 +1,30 @@
-# Chrome Web Store listing — English
+# VaultClip 1.1.0 — EN
 
-## Name
-VaultClip - Markdown + PDF
+VaultClip saves the current webpage to a local folder you choose as a Markdown note and a PDF archive. Use it with Markdown vaults, including Obsidian.
 
-## Short description
-Save the current web page to a local vault as a compact Markdown summary linked to a full PDF archive.
+Features
+• A Markdown note with the page title, saved time, compact extracted summary and PDF link
+• A PDF archive of the currently rendered webpage
+• A choice of a wiki-style PDF link or embedded PDF
+• Configurable Vault subfolder and maximum summary length
+• Korean and English interfaces and Markdown section labels
+• Local processing without an account or external server uploads
 
-## Recommended category
-Productivity
+How to use
+1. Open VaultClip on a regular HTTP/HTTPS webpage.
+2. Click “Choose Vault folder” and select a local folder.
+3. Set the subfolder and summary length.
+4. Click “Save summary MD + PDF”.
 
-## Detailed description
-VaultClip is a local-first web clipper for keeping web pages searchable and available for later reference.
+Languages
+VaultClip automatically uses Korean or English based on your Chrome language. Korean is the default for unsupported languages. You can also select 한국어 or English in the popup’s Language menu. Your choice is saved locally and applies to the “Saved at” and “Summary” labels in new Markdown notes. The source page and extracted summary remain in their original language; VaultClip does not translate webpage content.
 
-With one click, it saves the current page in two formats:
+By default, Markdown notes are saved in WebClip and PDFs in WebClip/_archive/pdf. The summary is extracted from the page description and text; it is not an AI-generated summary. The page’s print styles may affect the PDF.
 
-- A lightweight Markdown note containing the saved time, a compact extracted summary, and a PDF link
-- A full PDF archive of the currently rendered web page
-- Direct saving to a local folder selected by the user
-- Wiki-style PDF links that work well with Markdown vault apps such as Obsidian
-- No account, cloud service, analytics, or external upload required
+Privacy and permissions
+VaultClip processes the active page’s title and content locally when you start a save. It does not send page data or files to the developer or third-party servers. Automatic PDF generation uses the debugger permission to briefly connect to the current tab, call Page.printToPDF, and disconnect. Chrome may display a temporary debugging notice.
 
-### How it works
-1. Select your local vault folder.
-2. Choose a subfolder such as `WebClip`.
-3. On a page you want to archive, select **Save MD + PDF**.
-4. VaultClip writes the Markdown note and PDF directly into your selected vault.
+Chrome internal pages and pages that restrict extensions are not supported.
+VaultClip is not an official Obsidian product and is not affiliated with or endorsed by Obsidian.
 
-### Privacy
-VaultClip reads only the active page when the user explicitly invokes the extension.
-Page content is processed locally to create the summary and PDF. It is not transmitted to the developer or any third-party server.
-
-For automatic PDF creation, VaultClip uses Chrome's `debugger` permission only during the user-initiated save operation. It attaches to the active tab, calls `Page.printToPDF`, and immediately detaches after the PDF is generated.
-
-VaultClip is an independent third-party extension and is not affiliated with or endorsed by Obsidian.
+New in 1.1.0: English interface, language selection and English Markdown section labels.

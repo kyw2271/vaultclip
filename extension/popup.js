@@ -4,6 +4,7 @@ const STORE = "handles";
 const HANDLE_KEY = "vault";
 
 const el = {
+  language: document.getElementById("language"),
   pickVault: document.getElementById("pickVault"),
   vaultStatus: document.getElementById("vaultStatus"),
   subfolder: document.getElementById("subfolder"),
@@ -12,10 +13,16 @@ const el = {
   saveBoth: document.getElementById("saveBoth"),
   status: document.getElementById("status"),
 };
+const t = i18n.t;
+let languagePreference = "auto";
 
 function setBusy(v) {
   el.pickVault.disabled = v;
   el.saveBoth.disabled = v;
+  el.language.disabled = v;
+  el.subfolder.disabled = v;
+  el.summaryChars.disabled = v;
+  el.embedPdf.disabled = v;
 }
 function status(msg, err=false) {
   el.status.textContent = msg;
@@ -63,10 +70,10 @@ async function refreshBadge(){
     if(h){
       el.vaultStatus.textContent=h.name;
       el.vaultStatus.classList.remove("bad");
-      status(`Vault 연결됨: ${h.name}`);
+      status(t("vaultConnected", h.name));
     }else{
       const stored=await dbGet(HANDLE_KEY);
-      el.vaultStatus.textContent=stored ? "권한 재확인" : "미선택";
+      el.vaultStatus.textContent=t(stored ? "vaultPermissionNeeded" : "vaultNotSelected");
       el.vaultStatus.classList.add("bad");
     }
   }catch(_){}
@@ -75,21 +82,33 @@ async function refreshBadge(){
 el.pickVault.addEventListener("click",async()=>{
   try{
     setBusy(true);
-    if(!window.showDirectoryPicker) throw new Error("이 Chrome에서는 폴더 선택 API를 사용할 수 없습니다.");
+    if(!window.showDirectoryPicker) throw new Error(t("folderPickerUnavailable"));
     const h=await window.showDirectoryPicker({mode:"readwrite"});
     await dbPut(HANDLE_KEY,h);
     el.vaultStatus.textContent=h.name;
     el.vaultStatus.classList.remove("bad");
-    status(`Vault 선택 완료: ${h.name}`);
+    status(t("vaultSelected", h.name));
   }catch(e){
-    if(e?.name!=="AbortError") status("오류: "+(e?.message||e),true);
+    if(e?.name!=="AbortError") status(t("error", e?.message||String(e)),true);
   }finally{setBusy(false)}
 });
 
-chrome.storage.local.get(["subfolder","summaryChars","embedPdf"],cfg=>{
-  if(cfg.subfolder) el.subfolder.value=cfg.subfolder;
-  if(cfg.summaryChars) el.summaryChars.value=String(cfg.summaryChars);
-  if(typeof cfg.embedPdf==="boolean") el.embedPdf.checked=cfg.embedPdf;
+el.language.addEventListener("change", async () => {
+  setBusy(true);
+  const previous = languagePreference;
+  try {
+    const next = el.language.value;
+    await i18n.setLanguage(next);
+    await chrome.storage.local.set({language: next});
+    languagePreference = next;
+    i18n.apply();
+    await refreshBadge();
+  } catch (e) {
+    await i18n.setLanguage(previous);
+    el.language.value = previous;
+    i18n.apply();
+    status(t("error", e?.message||String(e)), true);
+  } finally { setBusy(false); }
 });
 
 function sanitizeSubfolder(s){
@@ -125,7 +144,7 @@ async function uniqueName(dir,base,ext){
     const n=`${base}${i?`_${i}`:""}.${ext}`;
     try{await dir.getFileHandle(n,{create:false})}catch{return n}
   }
-  throw new Error("고유 파일명을 만들지 못했습니다.");
+  throw new Error(t("uniqueFilenameFailed"));
 }
 
 async function extractSummary(tabId,maxChars){
@@ -178,7 +197,7 @@ async function printToPdf(tabId){
       marginLeft:0.35,
       marginRight:0.35
     });
-    if(!r?.data) throw new Error("PDF 생성에 실패했습니다.");
+    if(!r?.data) throw new Error(t("pdfGenerationFailed"));
     return r.data;
   }finally{
     if(attached){try{await chrome.debugger.detach(target)}catch(_){}}
@@ -189,19 +208,21 @@ el.saveBoth.addEventListener("click",async()=>{
   setBusy(true);
   try{
     const vault=await getVault({request:true});
-    if(!vault) throw new Error("Vault 쓰기 권한을 허용해주세요.");
+    if(!vault) throw new Error(t("vaultWritePermissionRequired"));
+    el.vaultStatus.textContent = vault.name;
+    el.vaultStatus.classList.remove("bad");
 
     const [tab]=await chrome.tabs.query({active:true,currentWindow:true});
-    if(!tab?.id || !/^https?:/i.test(tab.url||"")) throw new Error("일반 웹페이지(http/https)에서 실행해주세요.");
+    if(!tab?.id || !/^https?:/i.test(tab.url||"")) throw new Error(t("normalWebpageRequired"));
 
     const subfolder=sanitizeSubfolder(el.subfolder.value);
     const summaryChars=Number(el.summaryChars.value)||900;
     const embedPdf=el.embedPdf.checked;
     await chrome.storage.local.set({subfolder,summaryChars,embedPdf});
 
-    status("페이지 요약 추출 중...");
+    status(t("extractingSummary"));
     const page=await extractSummary(tab.id,summaryChars);
-    if(!page) throw new Error("페이지 정보를 읽지 못했습니다.");
+    if(!page) throw new Error(t("pageReadFailed"));
 
     const now=new Date();
     const base=sanitizeFilename(page.title)+"__"+stamp(now);
@@ -209,7 +230,7 @@ el.saveBoth.addEventListener("click",async()=>{
     const clipDir=await ensureDir(vault,subfolder);
     const pdfDir=await ensureDir(clipDir,"_archive/pdf");
 
-    status("PDF 생성 중...");
+    status(t("generatingPdf"));
     const b64=await printToPdf(tab.id);
     const pdfName=await uniqueName(pdfDir,base,"pdf");
     const pdfBytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
@@ -221,28 +242,43 @@ el.saveBoth.addEventListener("click",async()=>{
     const md =
 `# ${page.title}
 
-- 저장 시간: ${localTime(now)}
+- ${t("savedAt")}: ${localTime(now)}
 
-## 요약
+## ${t("summaryHeading")}
 
-${page.summary || "요약을 추출하지 못했습니다."}
+${page.summary || t("summaryUnavailable")}
 
 ## PDF
 
 ${embedPdf ? `![[${pdfWikiPath}]]` : `[[${pdfWikiPath}]]`}
 `;
 
-    status("요약 노트 저장 중...");
+    status(t("savingNote"));
     await writeFile(clipDir,mdName,md);
 
-    status(`저장 완료
-MD: ${subfolder}/${mdName}
-PDF: ${pdfWikiPath}`);
+    status(t("saveComplete", [`${subfolder}/${mdName}`, pdfWikiPath]));
   }catch(e){
-    status("오류: "+(e?.message||String(e)),true);
+    status(t("error", e?.message||String(e)),true);
   }finally{
     setBusy(false);
   }
 });
 
-refreshBadge();
+async function initializePopup() {
+  setBusy(true);
+  try {
+    const cfg = await chrome.storage.local.get(["subfolder","summaryChars","embedPdf","language"]);
+    languagePreference = ["ko", "en"].includes(cfg.language) ? cfg.language : "auto";
+    await i18n.setLanguage(languagePreference);
+    i18n.apply();
+    el.language.value = languagePreference;
+    if(cfg.subfolder) el.subfolder.value=cfg.subfolder;
+    if(cfg.summaryChars) el.summaryChars.value=String(cfg.summaryChars);
+    if(typeof cfg.embedPdf==="boolean") el.embedPdf.checked=cfg.embedPdf;
+    await refreshBadge();
+  } catch (e) {
+    status(t("error", e?.message||String(e)), true);
+  } finally { setBusy(false); }
+}
+
+const ready = initializePopup();

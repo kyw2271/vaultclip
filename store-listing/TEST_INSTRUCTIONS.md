@@ -1,20 +1,3 @@
-# Reviewer Test Instructions
+# VaultClip 1.1.0 reviewer instructions
 
-1. Install the extension.
-2. Open a normal `https://` web page with text content.
-3. Select the VaultClip toolbar icon.
-4. Select **Vault 폴더 선택** and choose a writable local test folder.
-5. Leave the subfolder as `WebClip`.
-6. Select **요약 MD + PDF 저장**.
-7. Chrome may display a temporary debugging indicator while the PDF is generated.
-8. Confirm that the test folder contains:
-   - `WebClip/<page-title>__<timestamp>.md`
-   - `WebClip/_archive/pdf/<page-title>__<timestamp>.pdf`
-9. Open the Markdown file and verify that it contains only:
-   - the page title
-   - saved time
-   - compact extracted summary
-   - wiki-style link/embed to the saved PDF
-10. Confirm that no sign-in, external server, or network account is required.
-
-The `debugger` permission is used only during step 6 to call `Page.printToPDF` on the active tab and is detached immediately afterward.
+No account required. Open a regular HTTPS page. In the popup, choose English under Language, then Choose Vault folder and select a writable local folder. Click Save summary MD + PDF. Verify WebClip/*.md has Saved at, Summary and a PDF link to WebClip/_archive/pdf/*.pdf. Switch to 한국어 and repeat; new notes use 저장 시간 and 요약. Source text is not translated. The debugger connects only during PDF generation and then disconnects. Reopen the popup to verify language persistence.

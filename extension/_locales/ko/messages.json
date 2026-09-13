@@ -1,0 +1,135 @@
+{
+  "extensionName": {
+    "message": "VaultClip - Markdown + PDF"
+  },
+  "extensionDescription": {
+    "message": "현재 웹페이지를 로컬 Vault에 간단한 Markdown 요약 노트와 PDF 아카이브로 함께 저장합니다."
+  },
+  "subtitle": {
+    "message": "Markdown 요약 + PDF 아카이브"
+  },
+  "languageLabel": {
+    "message": "언어"
+  },
+  "languageAuto": {
+    "message": "Chrome 언어에 맞춤"
+  },
+  "pickVault": {
+    "message": "Vault 폴더 선택"
+  },
+  "vaultNotSelected": {
+    "message": "미선택"
+  },
+  "vaultPermissionNeeded": {
+    "message": "권한 재확인"
+  },
+  "subfolderLabel": {
+    "message": "Vault 내부 저장 폴더"
+  },
+  "summaryLengthLabel": {
+    "message": "요약 최대 길이"
+  },
+  "summaryShort": {
+    "message": "짧게 · 약 500자"
+  },
+  "summaryMedium": {
+    "message": "보통 · 약 900자"
+  },
+  "summaryLong": {
+    "message": "길게 · 약 1,500자"
+  },
+  "embedPdfLabel": {
+    "message": "PDF를 노트 안에 임베드"
+  },
+  "pdfPermissionTitle": {
+    "message": "PDF 자동 저장 권한 안내"
+  },
+  "pdfPermissionBody": {
+    "message": "PDF 생성 시 현재 탭에 Chrome 디버깅 인터페이스를 잠시 연결합니다. 페이지 데이터는 외부 서버로 전송하지 않으며 PDF 생성 후 연결을 해제합니다."
+  },
+  "saveBoth": {
+    "message": "요약 MD + PDF 저장"
+  },
+  "selectVaultFirst": {
+    "message": "Vault를 먼저 선택하세요."
+  },
+  "noteHint": {
+    "message": "MD에는 저장 시간·요약·PDF 연결만 기록합니다. 원문 전문은 PDF에만 보존합니다."
+  },
+  "vaultConnected": {
+    "message": "Vault 연결됨: $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "My Vault"
+      }
+    }
+  },
+  "vaultSelected": {
+    "message": "Vault 선택 완료: $name$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "My Vault"
+      }
+    }
+  },
+  "folderPickerUnavailable": {
+    "message": "이 Chrome에서는 폴더 선택 API를 사용할 수 없습니다."
+  },
+  "error": {
+    "message": "오류: $details$",
+    "placeholders": {
+      "details": {
+        "content": "$1",
+        "example": "Could not read the page content."
+      }
+    }
+  },
+  "uniqueFilenameFailed": {
+    "message": "고유 파일명을 만들지 못했습니다."
+  },
+  "pdfGenerationFailed": {
+    "message": "PDF 생성에 실패했습니다."
+  },
+  "vaultWritePermissionRequired": {
+    "message": "Vault 쓰기 권한을 허용해주세요."
+  },
+  "normalWebpageRequired": {
+    "message": "일반 웹페이지(http/https)에서 실행해주세요."
+  },
+  "extractingSummary": {
+    "message": "페이지 요약 추출 중..."
+  },
+  "pageReadFailed": {
+    "message": "페이지 정보를 읽지 못했습니다."
+  },
+  "generatingPdf": {
+    "message": "PDF 생성 중..."
+  },
+  "savedAt": {
+    "message": "저장 시간"
+  },
+  "summaryHeading": {
+    "message": "요약"
+  },
+  "summaryUnavailable": {
+    "message": "요약을 추출하지 못했습니다."
+  },
+  "savingNote": {
+    "message": "요약 노트 저장 중..."
+  },
+  "saveComplete": {
+    "message": "저장 완료\nMD: $md_path$\nPDF: $pdf_path$",
+    "placeholders": {
+      "md_path": {
+        "content": "$1",
+        "example": "WebClip/Example.md"
+      },
+      "pdf_path": {
+        "content": "$2",
+        "example": "WebClip/_archive/pdf/Example.pdf"
+      }
+    }
+  }
+}

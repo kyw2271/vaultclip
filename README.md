@@ -1,20 +1,35 @@
 # VaultClip
 
-Save the active web page to a local folder as a compact Markdown note and a PDF archive.
+Save the active webpage locally as a compact Markdown note and a PDF archive.
 
-## Chrome extension
+[Chrome Web Store](https://chromewebstore.google.com/detail/jiimmmnmmgdaebglpiginogkfabikdkc)
+
+## Version 1.1.0
+
+Korean and English UI, progress/error messages and labels in newly saved Markdown notes. Chrome language is used automatically; unsupported languages fall back to Korean. Select 한국어 or English in the popup to override it. Language preferences stay in local browser storage. Original webpage content is not translated.
 
 - Source: `extension/`
-- Chrome Web Store upload package: `vaultclip-cws-v1.0.0.zip`
-- Store listing materials: `store-listing/`
+- Upload package: `vaultclip-cws-v1.1.0.zip`
+- Store materials: `store-listing/`
+- Changes: `CHANGELOG.md`
+- Validation: `TEST_REPORT_1.1.0.md`
 
-For local testing, open `chrome://extensions`, enable Developer mode, choose Load unpacked, and select the `extension` folder. Open a normal HTTP/HTTPS page, choose a local vault folder in VaultClip, then save Markdown and PDF. See `store-listing/TEST_INSTRUCTIONS.md`.
+## Local development
 
-VaultClip processes page content locally. Its debugger permission is used for user-initiated PDF generation. Runtime verification in Chrome is still required before submission.
+Open `chrome://extensions`, enable Developer mode, choose Load unpacked and select `extension/`. Open an HTTP/HTTPS page, choose a writable local Vault folder, then click Save summary MD + PDF (요약 MD + PDF 저장).
+
+Run automated tests with Node.js 22 or newer:
+
+```sh
+node --test tests/runtime.test.mjs
+```
+
+VaultClip processes page content locally. The debugger permission is used for user-initiated PDF generation and released afterward. Translation catalogs are packaged with the extension; no remote translation service is used.
 
 ## Privacy policy
 
-https://kyw2271.github.io/vaultclip/privacy-policy.html
+- [한국어 (기본)](https://kyw2271.github.io/vaultclip/privacy-policy.html)
+- [English](https://kyw2271.github.io/vaultclip/privacy-policy-en.html)
 
 ## Contact
 
